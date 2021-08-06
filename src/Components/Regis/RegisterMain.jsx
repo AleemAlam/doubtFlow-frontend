@@ -2,8 +2,10 @@ import { Button, TextField} from "@material-ui/core"
 import React,{useState } from "react"
 import "../../Styles/Register.css"
 import ComputerIcon from '@material-ui/icons/Computer';
-
+import { useDispatch } from "react-redux";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
+import { registeruser } from "../../Redux/Register/action";
+
 const RegisterMain = ()=>{
 
     const obj1 = {
@@ -16,6 +18,7 @@ const RegisterMain = ()=>{
       const [query, setQuery] = useState(obj1);
       const {name2,number,email,password} = query;
 
+      const dispatch = useDispatch();
       const handleChange= (e) => {
         const { name, value} = e.target;
     
@@ -41,7 +44,7 @@ const RegisterMain = ()=>{
              
             };
             setQuery(payload);
-            // dispatch(loginruser(payload));
+            dispatch(registeruser(payload));
           } else {
             if (query.name2  === "") {
               alert("Please Enter Full Name");
