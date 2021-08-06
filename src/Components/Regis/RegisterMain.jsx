@@ -101,7 +101,9 @@ const RegisterMain = ()=>{
                 variant="outlined"
                 size="small"
                 value={name2}
-                name="name2"   onChange={handleChange} />
+                name="name2"   onChange={handleChange} 
+                style={{width:"300px"}}
+                />
               
                 <br/>     <br/>
 
@@ -109,20 +111,25 @@ const RegisterMain = ()=>{
                 <TextField  onChange={handleChange} label="Phone No" type="Number" variant="outlined" size="small" 
                 value={number}
                 name="number" 
-           
+                style={{width:"300px"}}
                 onChange={handleChange} required/>
           
                 <br/>     <br/>
                     
                 <TextField onChange={handleChange} label="Email" type="email" variant="outlined" size="small" required  
                  value={email}
-                name="email"/>
-                 onChange={handleChange}
+                name="email" 
+                style={{width:"300px"}}
+                />
+             
+                 
                 <br/>     <br/>
                 <TextField  onChange={handleChange} label="Password" type="password" variant="outlined" size="small"
                 value={password}
-                name="password"/>
-                onChange={handleChange}
+                name="password"
+                style={{width:"300px"}}
+                />
+            
                 <br/>     <br/>
                     
               
