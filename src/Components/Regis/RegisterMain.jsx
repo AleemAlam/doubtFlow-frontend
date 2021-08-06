@@ -1,9 +1,9 @@
 import { Button, TextField } from "@material-ui/core"
 import React from "react"
 import "../../Styles/Register.css"
+import ComputerIcon from '@material-ui/icons/Computer';
 
-
-
+import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 const RegisterMain = ()=>{
     return(
 
@@ -12,6 +12,24 @@ const RegisterMain = ()=>{
             <div className="Head-divv">
 
                 <div className="Head-subdiv-register">
+
+                    <h2>Join the club</h2>
+                    
+
+                    <p>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus.
+                    </p>
+
+                    <div >
+                        <div>
+                        <h3><ComputerIcon  /> Community </h3><p>At vero eos et accusamus et</p>
+                        </div>
+
+                        <div>
+                        <h3><HelpOutlineIcon /> Doubt search</h3><p>At vero eos et accusamus et.</p>
+                        </div>
+                    </div>
+
 
                 </div>
                 
