@@ -48,34 +48,37 @@ const Login = ()=>{
       });
     return(
         <div>
-            <div>
+            
                 <div className="main-div-login" data-aos="fade-down">
-                      <h1>Login</h1>
+                   
 
-                      <div>
-                                
-                        <TextField  onChange={handleChange} label="Phone No" type="email" variant="outlined" size="small" 
+                      <div style={{marginLeft:"20%"}}>
+                      <h1>Login</h1>  
+                        <TextField  onChange={handleChange} label="Email" type="email" variant="outlined" size="small" 
                         value={email}
                         name="email" 
                         size="small"
-                        onChange={handleChange} required/><br/><br/>
+                        style={{width:"300px"}}
+                        onChange={handleChange} /><br/><br/>
 
                         <TextField  onChange={handleChange} label="Password" type="password" variant="outlined" size="small" 
                         value={password}
                         name="password" 
                         size="small"
-                        onChange={handleChange} required/><br/><br/>
+                        style={{width:"300px"}}
+                        onChange={handleChange} /><br/><br/>
 
-                        <Button  variant="contained" color="primary" onClick={handleLogin }>LOGIN</Button>
+                        <Button style={{textAlign:"left"}} variant="contained" color="primary" onClick={handleLogin }>LOGIN</Button>
                       </div>
 
-                      <div className="img-div-login">
+                      
+                </div>
+                <div className="img-div-login" data-aos="fade-up">
                       <img src="https://i.pinimg.com/originals/91/9e/b6/919eb6d857405fae1eff05e96ac355d6.png"/>
 
-                      </div>
                 </div>
 
-            </div>
+         
         </div>
     )
 }
