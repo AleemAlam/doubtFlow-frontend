@@ -1,11 +1,13 @@
 import { Button, TextField} from "@material-ui/core"
-import React,{useState } from "react"
+import React,{useState,useEffect } from "react"
 import "../../Styles/Register.css"
 import ComputerIcon from '@material-ui/icons/Computer';
 import { useDispatch } from "react-redux";
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import { registeruser } from "../../Redux/Register/action";
+import Aos from "aos";
 
+import "aos/dist/aos.css";
 const RegisterMain = ()=>{
 
     const obj1 = {
@@ -21,11 +23,6 @@ const RegisterMain = ()=>{
       const dispatch = useDispatch();
       const handleChange= (e) => {
         const { name, value} = e.target;
-    
-
-        console.log(name)
-        console.log(name,value,e)
-      
         setQuery({
           ...query,
           [name]: value,
@@ -60,22 +57,27 @@ const RegisterMain = ()=>{
           }
 
       }
+      useEffect(() => {
+        Aos.init({ duration: 2000 });
+      });
     return(
 
-        <div>
+        <div >
 
-            <div className="Head-divv">
+            <div className="Head-divv" data-aos="fade-up">
 
                 <div className="Head-subdiv-register">
 
-                    <h2>Join the club</h2>
+                   <div style={{marginLeft:"20px"}}>
+                   <h2>Join the club</h2>
                     2,number2,email,password
 
                     <p>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus.
                     </p>
+                   </div>
 
-                    <div >
+                    <div style={{marginLeft:"20px"}}>
                         <div>
                         <h3><ComputerIcon  /> Community </h3><p>At vero eos et accusamus et</p>
                         </div>
