@@ -34,6 +34,7 @@ export default function Questioncard({ title, desciption, creator, id }) {
   const history = useHistory();
 
 
+  console.log({creator})
   useEffect(() => {
     Aos.init({ duration: 2000 });
   });
@@ -62,6 +63,7 @@ export default function Questioncard({ title, desciption, creator, id }) {
               size='small'
               onClick={() => history.push(`/questions/${id}`)}
               color="primary"
+            
             >
               See Answer
             </Button>

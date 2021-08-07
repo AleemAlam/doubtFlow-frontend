@@ -16,6 +16,7 @@ const Questions = () => {
   const { response, loading, error } = useAxios({ url: '/question' });
 
 
+  console.log(response,"mm")
   return (
     <QuestionLayout data-aos="slide-right">
       <Homepage />

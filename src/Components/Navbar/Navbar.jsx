@@ -197,7 +197,7 @@ export default function Navbar() {
   return (
     <div className={classes.root}>
       <div className={classes.grow}>
-        <AppBar className={classes.nav} position='static'>
+        <AppBar className={classes.nav} position="static">
           <Toolbar>
             {/* <IconButton
               edge='start'
@@ -207,13 +207,16 @@ export default function Navbar() {
             >
               <MenuIcon />
             </IconButton> */}
-            <Typography className={classes.title} variant='h6' noWrap>
-              <Link to='/' className={classes.homeicon}>
-                <img src="https://pbs.twimg.com/profile_images/1220067947798024192/30eZhfxx_400x400.png" style={{height:"25px",borderRadius:"3px"}}/>
-               DoubtOverFlow 
+            <Typography className={classes.title} variant="h6" noWrap>
+              <Link to="/" className={classes.homeicon}>
+                <img
+                  src="https://pbs.twimg.com/profile_images/1220067947798024192/30eZhfxx_400x400.png"
+                  style={{ height: "25px", borderRadius: "3px" }}
+                />
+                DoubtOverFlow
               </Link>
             </Typography>
-            <div className={classes.searchContainer} >
+            <div className={classes.searchContainer}>
               {/* <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
@@ -230,45 +233,65 @@ export default function Navbar() {
               </div> */}
             </div>
             {/* <div className={classes.grow} /> */}
-            <Button color="inherit" onClick={()=> history.push("/register")} style={{marginRight:"40px"}}>Register</Button>
+
             {state.isAuth ? (
               <>
-                
                 <div className={classes.sectionDesktop}>
-                  <IconButton aria-label='show 4 new mails' color='inherit' className={classes.title} variant='h6' noWrap>
-                   <Typography   ><Link className={classes.homeicon} to="/register">Sign up</Link></Typography>
-                  </IconButton>
                   <IconButton
-                    aria-label='show 17 new notifications'
-                    color='inherit'
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                    className={classes.title}
+                    variant="h6"
+                    noWrap
                   >
-                  <Typography></Typography>
+                    <Typography>
+                      <Link className={classes.homeicon} to="/register">
+                        Sign up
+                      </Link>
+                    </Typography>
                   </IconButton>
                   <IconButton
-                    edge='end'
-                    aria-label='account of current user'
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                  >
+                    <Typography></Typography>
+                  </IconButton>
+                  <IconButton
+                    edge="end"
+                    aria-label="account of current user"
                     aria-controls={menuId}
-                    aria-haspopup='true'
+                    aria-haspopup="true"
                     onClick={handleProfileMenuOpen}
-                    color='inherit'
+                    color="inherit"
                   >
                     <AccountCircle />
                   </IconButton>
                 </div>
                 <div className={classes.sectionMobile}>
                   <IconButton
-                    aria-label='show more'
+                    aria-label="show more"
                     aria-controls={mobileMenuId}
-                    aria-haspopup='true'
+                    aria-haspopup="true"
                     onClick={handleMobileMenuOpen}
-                    color='inherit'
+                    color="inherit"
                   >
                     <MoreIcon />
                   </IconButton>
-                </div>{' '}
+                </div>{" "}
               </>
             ) : (
-              <Button color="inherit" onClick={()=> history.push("/login")} >Login</Button>
+              <div>
+                <Button color="inherit" onClick={() => history.push("/login")}>
+                  Login
+                </Button>
+
+                <Button
+                  color="inherit"
+                  onClick={() => history.push("/register")}
+                >
+                  Register{" "}
+                </Button>
+              </div>
             )}
           </Toolbar>
         </AppBar>
