@@ -17,6 +17,7 @@
 
 .chatBox {
   flex: 5.5;
+  height: 85vh;
 }
 
 .chatBoxWrapper {
@@ -24,14 +25,41 @@
   flex-direction: column;
   justify-content: space-between;
   position: relative;
+
 }
 
 .chatBoxTop {
   height: 100%;
   overflow-y: scroll;
   padding-right: 10px;
+  position: relative;
 }
+.chatTopBar {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  background: #48AB05;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  position: fixed;
+}
+.curUserImg{
+  width: 50px;
+  border-radius: 25px;
 
+}
+.curUserImg>img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.curUserName {
+  font-size: 20px;
+  font-weight: 600;
+  margin-left: 5px;
+}
 .chatBoxBottom {
   margin-top: 5px;
   display: flex;
@@ -40,8 +68,12 @@
 }
 
 .chatMessageInput {
+  border: none;
+  outline: none;
+  border-radius: 10px;
+  background: #bababa;
   width: 80%;
-  height: 90px;
+  height: 20px;
   padding: 10px;
 }
 

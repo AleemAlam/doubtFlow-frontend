@@ -11,6 +11,7 @@ import { io } from "socket.io-client";
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -19,10 +20,10 @@ export default function Messenger() {
   const socket = useRef();
   // const { user } = useContext();
   const user = {
-    _id: "610d794e4a5c99243145bce9",
-    email: "armaansheikh65@gmail.com",
+    _id: "610e5217c8d5f51cab58ce0b",
+    email: "ajay@gmail.com",
     role: "student",
-    name: "Kamlendra Singh",
+    name: "Ajay Kumar",
   };
   const scrollRef = useRef();
 
@@ -113,7 +114,19 @@ export default function Messenger() {
       console.log(err);
     }
   };
-
+  const handleCurrentChat = (c) => {
+    setCurrentChat(c);
+    const friendId = c.members.find((m) => m !== user._id);
+    const getUser = async () => {
+      try {
+        const res = await axios("/users/find?userId=" + friendId);
+        setCurrentUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -126,7 +139,7 @@ export default function Messenger() {
           <div className="chatMenuWrapper">
             <input placeholder="Search for friends" className="chatMenuInput" />
             {conversations.map((c) => (
-              <div key = {c._id} onClick={() => setCurrentChat(c)}>
+              <div key = {c._id} onClick={() => handleCurrentChat(c)}>
                 <Conversation conversation={c} currentUser={user} />
               </div>
             ))}
@@ -137,6 +150,10 @@ export default function Messenger() {
             {currentChat ? (
               <>
                 <div className="chatBoxTop">
+                  <div className = "chatTopBar">
+                    <div className = "curUserImg"><img src="/images/noAvatar.png" alt="" /></div>
+                    <span className = "curUserName">{currentUser?.name}</span>
+                  </div>
                   {messages.map((m) => (
                     <div key = {m._id} ref={scrollRef}>
                       <Message message={m} own={m.sender === user._id} />
@@ -144,12 +161,12 @@ export default function Messenger() {
                   ))}
                 </div>
                 <div className="chatBoxBottom">
-                  <textarea
+                  <input
                     className="chatMessageInput"
                     placeholder="write something..."
                     onChange={(e) => setNewMessage(e.target.value)}
                     value={newMessage}
-                  ></textarea>
+                  />
                   <button className="chatSubmitButton" onClick={handleSubmit}>
                     Send
                   </button>
