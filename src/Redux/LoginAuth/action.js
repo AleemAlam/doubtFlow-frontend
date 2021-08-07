@@ -38,43 +38,13 @@ export const logoutpage = () => {
 
 export const loginruser = (payload) => (dispatch) => {
   dispatch(loginregister());
-  const config = {
-    url: "https://json-server-nil.herokuapp.com/tripvillas",
-    method: "get",
-    params: {
-      email: payload.email,
-      password: payload.password,
-    },
-  };
-  axios(config)
+  
+  axios.post('/users/login', { email: payload.email,
+      password: payload.password,})
     .then((res) => {
-      if (res.data.length === 0) {
-        alert("Email or Password Wrong");
-        dispatch(failureLoginreq());
-      } else if (res.data.length > 0) {
-        let data = res.data[0];
-        console.log(data, "paylo");
-        dispatch(sucessLoginreq(data));
-
-        if (payload.stay === true) {
-          console.log(data.email, data.id, data.name2);
-          let localdata = {
-            email: data.email,
-            password: data.password,
-            loginAuth: true,
-            id: data.id,
-            username: data.name2,
-          };
-          console.log(localdata);
-          saveData("info", localdata);
-
-          console.log(saveData, "local");
-        }
-
-        // alert("You Have Succesfully logged in");
-      }
+      dispatch(sucessLoginreq(res.data));
     })
     .catch((err) => {
-      dispatch(failureLoginreq());
+      dispatch(failureLoginreq(err));
     });
 };

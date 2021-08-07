@@ -7,7 +7,7 @@ import { Commentp } from '../Components/PrivatePage/Commentp';
 import Questions from '../Components/Questions/Questions';
 import SingleQuestionCard from '../Components/Questions/SingleQuestionCard';
 import { RegisterMain } from '../Components/Regis/RegisterMain';
-
+import Messenger from '../Pages/Messenger';
 const Routes = () => {
   const state = useSelector((state) => state.login);
 
@@ -24,6 +24,11 @@ const Routes = () => {
         <Route path='/register'>
           <RegisterMain />
         </Route>
+
+        <Route path='/messenger'>
+          <Messenger />
+        </Route>
+        
         <Route exact path='/questions'>
           <Questions />
         </Route>
