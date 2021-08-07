@@ -28,7 +28,7 @@ export const registeruser = (payload) => (dispatch) => {
   dispatch(registerreq());
   const requestParam = {
     method: "post",
-    url: "https://json-server-nil.herokuapp.com/tripvillas",
+    url: "http://localhost:8080/users/signup",
     header: {
       "Content-Type": "Application/json",
     },

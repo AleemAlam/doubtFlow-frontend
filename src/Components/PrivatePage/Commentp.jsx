@@ -7,6 +7,8 @@ import axios from "axios";
 import useAxios from "../../Hooks/axioshook";
 import { makeStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
+import { useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -19,21 +21,33 @@ const useStyles = makeStyles((theme) => ({
 
 const Commentp = ({match}) => {
   const [data, setData] = useState("");
-  const qstID= match.params.id
-    const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
+  const [comments,setComments] = useState([])
+  const[question,setQuestion] = useState([])
+  const{id} = useParams()
+
+  console.log(id,"allem")
+    // const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
+
+    const token = useSelector((state)=> state.login.token)
+
+    console.log(token,"token")
 
 
   const [query, setQuery] = useState([]);
 
   const handleAdd = () => {
-    console.log(data);
+    console.log(data,"hi0");
 
     axios
-      .post("/", {
-        answer: data,
-      })
+      .post(`http://localhost:8080/comment/${id}`, {
+        content: data,
+      },
+      {
+        headers: {'Authorization': `Bearer ${token}`}
+      }
+      )
       .then(function (response) {
-        console.log(response);
+        console.log(response,"hi");
       })
       .catch(function (error) {
         console.log(error);
@@ -43,11 +57,11 @@ const Commentp = ({match}) => {
   };
 
   const getdata = () => {
-    axios
-      .get(" ")
+    axios.get(`http://localhost:8080/comment/${id}`)
       .then(function (response) {
         // handle success
-        console.log(response);
+        console.log(response.data.comments);
+        setComments(response.data.comments)
       })
       .catch(function (error) {
         // handle error
@@ -55,9 +69,26 @@ const Commentp = ({match}) => {
       });
   };
 
+  const getquestion = ()=>{
+    axios.get(`http://localhost:8080/question/${id}`)
+    .then(function (response) {
+      // handle success
+      console.log(response)
+      setQuestion(response.data.questions);
+      
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+
+  }
+
+  
   useEffect(() => {
+    getquestion()
     getdata();
-  }, []);
+  },[]);
 
   return (
     <div style={{ display: "flex" }}>
@@ -164,23 +195,30 @@ const Commentp = ({match}) => {
       </div>
       <div className="Main-commentp-div">
         <div>
-          <h2>
-           {
-             loading ? <> <LinearProgress/>  <LinearProgress/></> : response.question[0].question
-           }
-         
-          </h2>
+          <h3>
+            {/* {
+              question.map((item)=>
+              <div>
+                {item.question}
+              </div>
+              )
+              //  loading ? <> <LinearProgress/>  <LinearProgress/></> : response.question[0].question
+            } */}
+          </h3>
         </div>
         <a href=""> Answers : </a>
         <hr />
         <div className="answer-commentp">
-          <a>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy{" "}
-            <a style={{ color: "gray", fontWeight: "bold" }}> : by User</a>
-          </a>
-          <br />
-          <hr />
+          {comments?.map((item) => (
+            <div>
+              <a>
+                {item.content}
+                <a style={{ color: "gray", fontWeight: "bold" }}> : by User</a>
+              </a>
+              <br />
+              <hr />
+            </div>
+          ))}
         </div>
         <br />
         <div>

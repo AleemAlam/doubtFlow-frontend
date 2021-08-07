@@ -16,9 +16,6 @@ const Homepage = () => {
             <div className="Askque-home" data-aos="fade-right">
             <TransitionsModal />
             </div>
-           
-            <div></div>
-            <h1>HOMEPAGE</h1>
         </div>
     )
 }

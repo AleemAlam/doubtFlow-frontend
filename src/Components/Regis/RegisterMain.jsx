@@ -15,7 +15,11 @@ const RegisterMain = () => {
     number: '',
     email: '',
     password: '',
+    role:"student"
   };
+
+ 
+
   const register = useSelector((state) => state.register);
   const [query, setQuery] = useState(obj1);
   const { name2, number, email, password } = query;
@@ -30,6 +34,7 @@ const RegisterMain = () => {
   };
 
   const handleRegister = () => {
+    console.log(query,"mmm")
     if (
       query.name2 !== '' &&
       query.number !== '' &&
@@ -41,6 +46,7 @@ const RegisterMain = () => {
         email: query.email,
         number: query.number,
         password: query.password,
+        role:"student"
       };
       setQuery(payload);
       dispatch(registeruser(payload));

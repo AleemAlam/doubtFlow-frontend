@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import useAxios from '../../Hooks/axioshook';
 import { CircularProgress } from '@material-ui/core';
+import Homepage from '../Home/Homepage';
 
 const QuestionLayout = styled.div`
   max-width: 60%;
@@ -16,6 +17,7 @@ const Questions = () => {
 
   return (
     <QuestionLayout>
+      <Homepage />
       <h1>Top Questions</h1>
       {loading ? (
         <CircularProgress />

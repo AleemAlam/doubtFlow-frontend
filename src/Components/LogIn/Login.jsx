@@ -32,6 +32,7 @@ const Login = () => {
         email: query.email,
         password: query.password,
       };
+      alert("Successful Login")
       setquery(payload);
       dispatch(loginruser(payload));
     } else {

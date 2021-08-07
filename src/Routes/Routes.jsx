@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
-import Homepage from '../Components/Home/Homepage';
+
 import { Login } from '../Components/LogIn/Login';
 import { Commentp } from '../Components/PrivatePage/Commentp';
 import Questions from '../Components/Questions/Questions';
@@ -32,7 +32,13 @@ const Routes = () => {
         <Route exact path='/questions'>
           <Questions />
         </Route>
-        <Route path='/questions/:id' component={Commentp} />
+
+        <Route exact path="/questions/:id">
+
+          <Commentp/>
+
+        </Route>
+        {/* <Route path='/questions/:id' component={Commentp} /> */}
       </Switch>
     </div>
   );
