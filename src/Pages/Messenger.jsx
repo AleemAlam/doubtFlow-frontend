@@ -2,7 +2,7 @@ import "./messenger.css";
 import Conversation from "../Components/conversation/Conversation";
 import Message from "../Components/message/Message";
 import ChatOnline from "../Components/chatOnline/ChatOnline";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {loadData} from '../utils/localStorage'
 import axios from "axios";
 import { io } from "socket.io-client";
@@ -12,6 +12,7 @@ export default function Messenger() {
   const [conversations, setConversations] = useState([]);
   const [currentChat, setCurrentChat] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
+  const [newConv, setNewConv] = useState(false);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
   const [arrivalMessage, setArrivalMessage] = useState(null);
@@ -19,11 +20,42 @@ export default function Messenger() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
   // const { user } = useContext();
-  const {newUser} = useParams();
+  const {newUserId} = useParams();
   const user = loadData('data');
-  console.log(user)
+
+  
   const scrollRef = useRef();
   useEffect(() => {
+    const getNewUserConv = async () => {
+      try {
+        const res = await axios.post("/conversation", {
+          senderId: user._id,
+          receiverId: newUserId
+        });
+        console.log(currentChat)
+        setNewConv(true)
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    const getConversations = async () => {
+      try {
+        const res = await axios.get("/conversation/" + newUserId);
+        if(res.data.length === 0){
+          getNewUserConv();
+        } else {
+          res.data.forEach((item) => {
+            if(item.members.includes(user._id)){
+              handleCurrentChat(item)
+            }
+          })
+          
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getConversations();
     const getAllUsers = async () => {
       try {
         const res = await axios.get("/users");
@@ -71,7 +103,7 @@ export default function Messenger() {
       }
     };
     getConversations(user);
-  }, [user._id]);
+  }, [user._id, newConv]);
 
   useEffect(() => {
     const getMessages = async () => {
@@ -96,7 +128,6 @@ export default function Messenger() {
     const receiverId = currentChat.members.find(
       (member) => member !== user._id
     );
-
     socket.current.emit("sendMessage", {
       senderId: user._id,
       receiverId,
@@ -137,7 +168,7 @@ export default function Messenger() {
             <input placeholder="Search for users" className="chatMenuInput" />
             {conversations.map((c) => (
               <div key = {c._id} onClick={() => handleCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user} recId = {newUser ? newUser._id : ""} />
+                <Conversation conversation={c} currentUser={user} />
               </div>
             ))}
           </div>
