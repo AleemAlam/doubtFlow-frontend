@@ -12,7 +12,7 @@ const initstate = loadData("data") || {
   isError: false,
   email: "",
   username: "",
-};
+}
 export const LoginReducer = (state = initstate, action) => {
   const { type, payload } = action;
 
@@ -41,7 +41,10 @@ export const LoginReducer = (state = initstate, action) => {
         isError: true,
       };
     case LOGOUT_PAGE:
-      saveData("auth", false);
+      localStorage.removeItem("auth");
+      localStorage.removeItem("data");
+
+      // saveData("auth", false);
       return {
         ...state,
         isAuth: false,
