@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import Homepage from '../Components/Home/Homepage';
 import { Login } from '../Components/LogIn/Login';
 import { RegisterMain } from '../Components/Regis/RegisterMain';
-
+import Messenger from '../Pages/Messenger';
 const Routes = () => {
   return (
     <div>
@@ -16,6 +16,9 @@ const Routes = () => {
         </Route>
         <Route path='/register'>
           <RegisterMain />
+        </Route>
+        <Route path='/messenger'>
+          <Messenger />
         </Route>
       </Switch>
     </div>

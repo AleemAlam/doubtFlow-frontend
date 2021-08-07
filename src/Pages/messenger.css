@@ -9,9 +9,10 @@
 
 .chatMenuInput {
   width: 90%;
-  padding: 10px 0;
+  padding: 5px 0;
   border: none;
   border-bottom: 1px solid gray;
+  outline: none;
 }
 
 .chatBox {
