@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-
-import { v4 as uuidv4 } from 'uuid';
 import Questioncard from './Questioncard';
 import styled from 'styled-components';
 import axios from 'axios';
 
 const QuestionLayout = styled.div`
   max-width: 60%;
-  padding: 5% 1%;
+  padding: 1% 1%;
   margin: auto;
 `;
 
@@ -18,12 +16,13 @@ const Questions = () => {
   }, []);
   return (
     <QuestionLayout>
+        <h1>Top Questions</h1>
       { allQuestions && allQuestions.map((qst) => {
         return (
           <Questioncard
             title={qst.title}
             description={qst.question}
-            creator={qst.creator}
+            creator={qst.creator.name}
             id={qst._id}
           />
         );

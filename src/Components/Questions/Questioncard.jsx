@@ -12,7 +12,7 @@ const useStyles = makeStyles({
   root: {
     minWidth: 275,
     margin: '3%',
-    background: '#f1f1f1'
+    background: '#f1f1f1',
   },
   bullet: {
     display: 'inline-block',
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Questioncard({ title, desciption,creator, id }) {
+export default function Questioncard({ title, desciption, creator, id }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -59,8 +59,8 @@ export default function Questioncard({ title, desciption,creator, id }) {
               See Answer
             </Button>
           </CardActions>
-          <Typography className={classes.pos} color="textSecondary">
-              Asked by : {creator}
+          <Typography className={classes.pos} color='textSecondary'>
+            Asked by : {creator}
           </Typography>
         </Grid>
       </Grid>

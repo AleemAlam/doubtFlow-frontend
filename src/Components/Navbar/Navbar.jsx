@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link,useHistory  } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -16,6 +16,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
+import { logoutpage } from '../../Redux/LoginAuth/action';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '50ch',
     },
   },
   sectionDesktop: {
@@ -104,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const state = useSelector((state) => state.login);
   let history = useHistory();
+  const dispatch = useDispatch()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -121,6 +123,7 @@ export default function Navbar() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+
     handleMobileMenuClose();
   };
 
@@ -141,6 +144,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>{handleMenuClose(); dispatch(logoutpage())}}>Logout</MenuItem>
     </Menu>
   );
 

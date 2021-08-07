@@ -71,7 +71,7 @@ export const loginruser = (payload) => (dispatch) => {
           console.log(saveData, "local");
         }
 
-        alert("You Have Succesfully logged in");
+        // alert("You Have Succesfully logged in");
       }
     })
     .catch((err) => {

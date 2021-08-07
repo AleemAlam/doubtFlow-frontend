@@ -1,5 +1,6 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import Homepage from '../Components/Home/Homepage';
 import { Login } from '../Components/LogIn/Login';
 import Questions from '../Components/Questions/Questions';
@@ -7,14 +8,16 @@ import SingleQuestionCard from '../Components/Questions/SingleQuestionCard';
 import { RegisterMain } from '../Components/Regis/RegisterMain';
 
 const Routes = () => {
+  const state = useSelector((state) => state.login);
+
   return (
     <div>
       <Switch>
         <Route exact path='/'>
-          <Homepage />
+          <Redirect to='/questions' />
         </Route>
         <Route path='/login'>
-          <Login />
+          {state.isAuth ? <Redirect to='/questions' /> : <Login />}
         </Route>
         <Route path='/register'>
           <RegisterMain />
