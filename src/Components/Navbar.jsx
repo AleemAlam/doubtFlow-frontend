@@ -18,6 +18,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme) => ({
   grow: {
     flexGrow: 1,
+    position: "sticky",
+    top:0
   },
   nav:{
 backgroundColor:"#3F424D"
