@@ -4,9 +4,24 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import { useEffect } from "react";
 import axios from "axios";
+import useAxios from "../../Hooks/axioshook";
+import { makeStyles } from '@material-ui/core/styles';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
-const Commentp = () => {
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: '100%',
+    '& > * + *': {
+      marginTop: theme.spacing(2),
+    },
+  },
+}));
+
+const Commentp = ({match}) => {
   const [data, setData] = useState("");
+  const qstID= match.params.id
+    const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
+
 
   const [query, setQuery] = useState([]);
 
@@ -150,8 +165,10 @@ const Commentp = () => {
       <div className="Main-commentp-div">
         <div>
           <h2>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry. Lorem Ipsum has been the industry's standard dummy ?
+           {
+             loading ? <> <LinearProgress/>  <LinearProgress/></> : response.question[0].question
+           }
+         
           </h2>
         </div>
         <a href=""> Answers : </a>
