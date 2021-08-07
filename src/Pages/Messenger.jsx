@@ -23,6 +23,8 @@ export default function Messenger() {
   const {newUserId} = useParams();
   const user = loadData('data');
 
+  console.log(user,"user")
+
   
   const scrollRef = useRef();
   useEffect(() => {

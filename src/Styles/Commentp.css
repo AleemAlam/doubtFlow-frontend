@@ -2,11 +2,13 @@
     position: relative;
     text-align: left;
     left: 15px;
-    width: 70%;
-    
-    
+    width: 81.95%;
+    height: 660px;
+    overflow: scroll;  
+    overflow-x: hidden;
     
 }
+
 
 .answer-commentp {
    

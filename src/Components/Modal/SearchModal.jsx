@@ -100,6 +100,9 @@ export default function TransitionsModal() {
         data-aos="fade-down"
         onClick={handleOpen}
         variant="contained" color="primary" 
+        size="large"
+        style={{width:"190%",marginLeft:"240px"}}
+        
         
       >
         Ask Question

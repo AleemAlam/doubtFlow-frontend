@@ -189,6 +189,11 @@ export default function Navbar() {
     </Menu>
   );
 
+  ///////////
+
+  //search filter//
+
+
   return (
     <div className={classes.root}>
       <div className={classes.grow}>
@@ -204,11 +209,12 @@ export default function Navbar() {
             </IconButton> */}
             <Typography className={classes.title} variant='h6' noWrap>
               <Link to='/' className={classes.homeicon}>
-                DoubtFlow
+                <img src="https://pbs.twimg.com/profile_images/1220067947798024192/30eZhfxx_400x400.png" style={{height:"25px",borderRadius:"3px"}}/>
+               DoubtOverFlow 
               </Link>
             </Typography>
             <div className={classes.searchContainer} >
-              <div className={classes.search}>
+              {/* <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
@@ -219,26 +225,24 @@ export default function Navbar() {
                     input: classes.inputInput,
                   }}
                   inputProps={{ 'aria-label': 'search' }}
+            
                 />
-              </div>
+              </div> */}
             </div>
             {/* <div className={classes.grow} /> */}
+            <Button color="inherit" onClick={()=> history.push("/register")} style={{marginRight:"40px"}}>Register</Button>
             {state.isAuth ? (
               <>
-                {' '}
+                
                 <div className={classes.sectionDesktop}>
-                  <IconButton aria-label='show 4 new mails' color='inherit'>
-                    <Badge badgeContent={4} color='secondary'>
-                      <MailIcon />
-                    </Badge>
+                  <IconButton aria-label='show 4 new mails' color='inherit' className={classes.title} variant='h6' noWrap>
+                   <Typography   ><Link className={classes.homeicon} to="/register">Sign up</Link></Typography>
                   </IconButton>
                   <IconButton
                     aria-label='show 17 new notifications'
                     color='inherit'
                   >
-                    <Badge badgeContent={17} color='secondary'>
-                      <NotificationsIcon />
-                    </Badge>
+                  <Typography></Typography>
                   </IconButton>
                   <IconButton
                     edge='end'

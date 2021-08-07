@@ -15,8 +15,9 @@ const QuestionLayout = styled.div`
 const Questions = () => {
   const { response, loading, error } = useAxios({ url: '/question' });
 
+
   return (
-    <QuestionLayout>
+    <QuestionLayout data-aos="slide-right">
       <Homepage />
       <h1>Top Questions</h1>
       {loading ? (
@@ -31,6 +32,7 @@ const Questions = () => {
               description={qst.question}
               creator={qst.creator.name}
               id={qst._id}
+              
             />
           );
         })
