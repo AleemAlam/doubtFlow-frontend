@@ -1,12 +1,14 @@
 import './App.css';
-import { Login } from './Components/LogIn/Login';
-import Navbar from './Components/Navbar';
+import Footer from './Components/Footer/Footer';
+import Navbar from './Navbar/Navbar';
+import { Routes } from './Routes/Routes';
 
 function App() {
   return (
     <div className='App'>
       <Navbar />
-      <Login />
+      <Routes/>
+      <Footer/>
     </div>
   );
 }
