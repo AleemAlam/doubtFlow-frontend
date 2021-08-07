@@ -12,7 +12,7 @@ const initstate = loadData("data") || {
   isError: false,
   email: "",
   username: "",
-};
+}
 export const LoginReducer = (state = initstate, action) => {
   const { type, payload } = action;
 
