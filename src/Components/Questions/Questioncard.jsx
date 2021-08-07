@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Questioncard({ title, desciption, id }) {
+export default function Questioncard({ title, desciption,creator, id }) {
   const classes = useStyles();
   const history = useHistory();
 
@@ -59,6 +59,9 @@ export default function Questioncard({ title, desciption, id }) {
               See Answer
             </Button>
           </CardActions>
+          <Typography className={classes.pos} color="textSecondary">
+              Asked by : {creator}
+          </Typography>
         </Grid>
       </Grid>
     </Card>
