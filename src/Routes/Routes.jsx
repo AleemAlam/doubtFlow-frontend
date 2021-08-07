@@ -25,7 +25,7 @@ const Routes = () => {
           <RegisterMain />
         </Route>
 
-        <Route path='/messenger'>
+        <Route path='/messenger/:newUserId'>
           <Messenger />
         </Route>
         

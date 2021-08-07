@@ -5,6 +5,7 @@
 
 .chatMenu {
   flex: 3.5;
+  overflow-y: scroll;
 }
 
 .chatMenuInput {
