@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link,useHistory  } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { alpha, makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -10,13 +10,13 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Button } from '@material-ui/core';
+import { logoutpage } from '../../Redux/LoginAuth/action';
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -26,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 20,
   },
   nav: {
+    paddingLeft: '5vw',
+    paddingRight: '5vw',
     backgroundColor: '#303F9F',
   },
   menuButton: {
@@ -41,7 +43,15 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: 'none',
     color: 'white',
   },
+  searchContainer:{
+
+    flexGrow: 1,
+    display: 'flex',
+    justifyContent:'center',
+    alignItems:'center'
+  },
   search: {
+    minWidth:'50%',
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -75,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('md')]: {
-      width: '20ch',
+      width: '50ch',
     },
   },
   sectionDesktop: {
@@ -95,6 +105,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Navbar() {
   const state = useSelector((state) => state.login);
   let history = useHistory();
+  const dispatch = useDispatch()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -112,6 +123,7 @@ export default function Navbar() {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+
     handleMobileMenuClose();
   };
 
@@ -132,6 +144,7 @@ export default function Navbar() {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={()=>{handleMenuClose(); dispatch(logoutpage())}}>Logout</MenuItem>
     </Menu>
   );
 
@@ -177,83 +190,87 @@ export default function Navbar() {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar className={classes.nav} position='static'>
-        <Toolbar>
-          <IconButton
-            edge='start'
-            className={classes.menuButton}
-            color='inherit'
-            aria-label='open drawer'
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant='h6' noWrap>
-            <Link to='/' className={classes.homeicon}>
-              DoubtFlow
-            </Link>
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder='Search…'
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div>
-          <div className={classes.grow} />
-          {state.isAuth ? (
-            <>
-              {' '}
-              <div className={classes.sectionDesktop}>
-                <IconButton aria-label='show 4 new mails' color='inherit'>
-                  <Badge badgeContent={4} color='secondary'>
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  aria-label='show 17 new notifications'
-                  color='inherit'
-                >
-                  <Badge badgeContent={17} color='secondary'>
-                    <NotificationsIcon />
-                  </Badge>
-                </IconButton>
-                <IconButton
-                  edge='end'
-                  aria-label='account of current user'
-                  aria-controls={menuId}
-                  aria-haspopup='true'
-                  onClick={handleProfileMenuOpen}
-                  color='inherit'
-                >
-                  <AccountCircle />
-                </IconButton>
+    <div className={classes.root}>
+      <div className={classes.grow}>
+        <AppBar className={classes.nav} position='static'>
+          <Toolbar>
+            {/* <IconButton
+              edge='start'
+              className={classes.menuButton}
+              color='inherit'
+              aria-label='open drawer'
+            >
+              <MenuIcon />
+            </IconButton> */}
+            <Typography className={classes.title} variant='h6' noWrap>
+              <Link to='/' className={classes.homeicon}>
+                DoubtFlow
+              </Link>
+            </Typography>
+            <div className={classes.searchContainer} >
+              <div className={classes.search}>
+                <div className={classes.searchIcon}>
+                  <SearchIcon />
+                </div>
+                <InputBase
+                  placeholder='Search…'
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput,
+                  }}
+                  inputProps={{ 'aria-label': 'search' }}
+                />
               </div>
-              <div className={classes.sectionMobile}>
-                <IconButton
-                  aria-label='show more'
-                  aria-controls={mobileMenuId}
-                  aria-haspopup='true'
-                  onClick={handleMobileMenuOpen}
-                  color='inherit'
-                >
-                  <MoreIcon />
-                </IconButton>
-              </div>{' '}
-            </>
-          ) : (
-            <Button color="inherit" onClick={()=> history.push("/login")} >Login</Button>
-          )}
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
+            </div>
+            {/* <div className={classes.grow} /> */}
+            {state.isAuth ? (
+              <>
+                {' '}
+                <div className={classes.sectionDesktop}>
+                  <IconButton aria-label='show 4 new mails' color='inherit'>
+                    <Badge badgeContent={4} color='secondary'>
+                      <MailIcon />
+                    </Badge>
+                  </IconButton>
+                  <IconButton
+                    aria-label='show 17 new notifications'
+                    color='inherit'
+                  >
+                    <Badge badgeContent={17} color='secondary'>
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                  <IconButton
+                    edge='end'
+                    aria-label='account of current user'
+                    aria-controls={menuId}
+                    aria-haspopup='true'
+                    onClick={handleProfileMenuOpen}
+                    color='inherit'
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                </div>
+                <div className={classes.sectionMobile}>
+                  <IconButton
+                    aria-label='show more'
+                    aria-controls={mobileMenuId}
+                    aria-haspopup='true'
+                    onClick={handleMobileMenuOpen}
+                    color='inherit'
+                  >
+                    <MoreIcon />
+                  </IconButton>
+                </div>{' '}
+              </>
+            ) : (
+              <Button color="inherit" onClick={()=> history.push("/login")} >Login</Button>
+            )}
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+        {renderMenu}
+      </div>
     </div>
   );
 }
