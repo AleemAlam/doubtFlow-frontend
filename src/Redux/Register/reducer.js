@@ -17,6 +17,7 @@ export const registerReducer = (state = initstate, action) => {
     case SUCCESS_REQ:
       return {
         ...state,
+        isAuth:true,
         isloading: false,
       };
     case FAILUARE_REQ:
