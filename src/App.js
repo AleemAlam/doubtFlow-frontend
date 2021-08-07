@@ -1,6 +1,6 @@
 import './App.css';
 import Footer from './Components/Footer/Footer';
-import Navbar from './Navbar/Navbar';
+import Navbar from './Components/Navbar/Navbar';
 import { Routes } from './Routes/Routes';
 
 function App() {
