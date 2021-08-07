@@ -2,11 +2,11 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./conversation.css";
 
-export default function Conversation({ conversation, currentUser }) {
+export default function Conversation({ conversation, currentUser, recId }) {
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const friendId = conversation.members.find((m) => m !== currentUser._id);
-  
+    const friendId = recId ? recId : conversation.members.find((m) => m !== currentUser._id);
+
     const getUser = async () => {
       try {
         const res = await axios("/users/find?userId=" + friendId);

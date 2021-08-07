@@ -7,6 +7,8 @@ import {
 } from "./actiontype";
 
 const initstate = loadData("data") || {
+  _id: "",
+  token:"",
   isAuth: false,
   isloading: false,
   isError: false,
@@ -27,8 +29,10 @@ export const LoginReducer = (state = initstate, action) => {
         ...state,
         isloading: false,
         isAuth: true,
-        email: payload.email,
-        username: payload.username,
+        _id: payload.user._id,
+        token:payload.token,
+        email: payload.user.email,
+        name: payload.user.name,
       };
 
       saveData("data", datalocal);

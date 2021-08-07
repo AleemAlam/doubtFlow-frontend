@@ -1,12 +1,12 @@
 import "./messenger.css";
-// import Topbar from "../../components/topbar/Topbar";
 import Conversation from "../Components/conversation/Conversation";
 import Message from "../Components/message/Message";
 import ChatOnline from "../Components/chatOnline/ChatOnline";
 import { useContext, useEffect, useRef, useState } from "react";
-// import { AuthContext } from "../../context/AuthContext";
+import {loadData} from '../utils/localStorage'
 import axios from "axios";
 import { io } from "socket.io-client";
+import {useParams} from 'react-router-dom';
 
 export default function Messenger() {
   const [conversations, setConversations] = useState([]);
@@ -19,14 +19,10 @@ export default function Messenger() {
   const [onlineUsers, setOnlineUsers] = useState([]);
   const socket = useRef();
   // const { user } = useContext();
-  const user = {
-    _id: "610e5217c8d5f51cab58ce0b",
-    email: "ajay@gmail.com",
-    role: "student",
-    name: "Ajay Kumar",
-  };
+  const {newUser} = useParams();
+  const user = loadData('data');
+  console.log(user)
   const scrollRef = useRef();
-
   useEffect(() => {
     const getAllUsers = async () => {
       try {
@@ -64,6 +60,7 @@ export default function Messenger() {
   }, [allUsers, user._id]);
 
   useEffect(() => {
+    
     const getConversations = async () => {
       try {
         const res = await axios.get("/conversation/" + user._id);
@@ -73,7 +70,7 @@ export default function Messenger() {
         console.log(err);
       }
     };
-    getConversations();
+    getConversations(user);
   }, [user._id]);
 
   useEffect(() => {
@@ -137,10 +134,10 @@ export default function Messenger() {
       <div className="messenger">
         <div className="chatMenu">
           <div className="chatMenuWrapper">
-            <input placeholder="Search for friends" className="chatMenuInput" />
+            <input placeholder="Search for users" className="chatMenuInput" />
             {conversations.map((c) => (
               <div key = {c._id} onClick={() => handleCurrentChat(c)}>
-                <Conversation conversation={c} currentUser={user} />
+                <Conversation conversation={c} currentUser={user} recId = {newUser ? newUser._id : ""} />
               </div>
             ))}
           </div>
