@@ -45,7 +45,7 @@ export default function Questioncard({ title, desciption, creator, id }) {
           {title}
         </Typography>
 
-        <Typography variant='body2' component='p'>
+        <Typography variant='body2' component='span'>
           {desciption}
         </Typography>
       </CardContent>
@@ -55,6 +55,7 @@ export default function Questioncard({ title, desciption, creator, id }) {
             <Button
               size='small'
               onClick={() => history.push(`/questions/${id}`)}
+              color="primary"
             >
               See Answer
             </Button>

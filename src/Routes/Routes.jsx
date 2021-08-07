@@ -14,6 +14,7 @@ const Routes = () => {
     <div>
       <Switch>
         <Route exact path='/'>
+          
           <Redirect to='/questions' />
         </Route>
         <Route path='/login'>
