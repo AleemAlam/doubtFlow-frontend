@@ -27,6 +27,7 @@ const Commentp = ({match}) => {
   const[question,setQuestion] = useState("")
   const{id} = useParams()
 
+  const history = useHistory()
   const ajayid = useSelector((state)=> state.login._id)
 
   console.log(id,"allem")
