@@ -13,7 +13,7 @@ const QuestionLayout = styled.div`
 
 const Questions = () => {
   const { response, loading, error } = useAxios({ url: '/question' });
-
+  console.log(response, loading)
   return (
     <QuestionLayout>
       <h1>Top Questions</h1>
@@ -25,6 +25,7 @@ const Questions = () => {
         response.questions.map((qst) => {
           return (
             <Questioncard
+            key = {qst._id}
               title={qst.title}
               description={qst.question}
               creator={qst.creator.name}
