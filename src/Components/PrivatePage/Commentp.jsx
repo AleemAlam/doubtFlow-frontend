@@ -7,6 +7,7 @@ import axios from "axios";
 import useAxios from "../../Hooks/axioshook";
 import { makeStyles } from "@material-ui/core/styles";
 import LinearProgress from "@material-ui/core/LinearProgress";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,9 +22,11 @@ const Commentp = ({ match }) => {
   const [data, setData] = useState("");
   const qstID = match.params.id;
   const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
-
+  const history = useHistory();
   const [query, setQuery] = useState([]);
-
+  const handleExpert = () => {
+    history.push("/expert");
+  };
   const handleAdd = () => {
     console.log(data);
 
@@ -155,6 +158,7 @@ const Commentp = ({ match }) => {
               variant="outlined"
               color="primary"
               size="small"
+              onClick={handleExpert}
             >
               Expert Room
             </Button>

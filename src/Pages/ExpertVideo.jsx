@@ -7,8 +7,9 @@ import React, { useEffect, useRef, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Peer from "simple-peer";
 import io from "socket.io-client";
+import { useHistory } from "react-router-dom";
 
-const socket = io("http://localhost:8000");
+const socket = io("https://warm-wildwood-81069.herokuapp.com");
 function ExpertVideoCall() {
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();
@@ -22,6 +23,7 @@ function ExpertVideoCall() {
   const myVideo = useRef();
   const userVideo = useRef();
   const connectionRef = useRef();
+  const history = useHistory();
 
   useEffect(() => {
     navigator.mediaDevices
@@ -42,7 +44,6 @@ function ExpertVideoCall() {
       setCallerSignal(data.signal);
     });
   }, []);
-
   const callUser = (id) => {
     const peer = new Peer({
       initiator: true,
@@ -89,6 +90,8 @@ function ExpertVideoCall() {
   const leaveCall = () => {
     setCallEnded(true);
     connectionRef.current.destroy();
+    window.location.reload();
+    // history.push("/questions");
   };
 
   return (
