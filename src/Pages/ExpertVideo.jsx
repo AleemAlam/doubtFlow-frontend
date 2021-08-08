@@ -8,7 +8,7 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Peer from "simple-peer";
 import io from "socket.io-client";
 
-const socket = io("http://localhost:8000");
+const socket = io("http://localhost:8900");
 function ExpertVideoCall() {
   const [me, setMe] = useState("");
   const [stream, setStream] = useState();

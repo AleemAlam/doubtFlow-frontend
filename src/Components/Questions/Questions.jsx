@@ -14,9 +14,7 @@ const QuestionLayout = styled.div`
 
 const Questions = () => {
   const { response, loading, error } = useAxios({ url: '/question' });
-
-
-  console.log(response,"mm")
+  console.log(response, loading)
   return (
     <QuestionLayout data-aos="slide-right">
       <Homepage />
@@ -29,6 +27,7 @@ const Questions = () => {
         response.questions.map((qst) => {
           return (
             <Questioncard
+            key = {qst._id}
               title={qst.title}
               description={qst.question}
               creator={qst.creator.name}

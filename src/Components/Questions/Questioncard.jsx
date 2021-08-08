@@ -68,9 +68,9 @@ export default function Questioncard({ title, desciption, creator, id }) {
               See Answer
             </Button>
           </CardActions>
-          <Typography className={classes.pos} color='textSecondary'>
+          {/* <Typography className={classes.pos} color='textSecondary'>
             Asked by : {creator}
-          </Typography>
+          </Typography> */}
         </Grid>
       </Grid>
     </Card>
