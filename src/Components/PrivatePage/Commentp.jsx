@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Aos from "aos";
+import { useHistory } from "react-router-dom";
 
 import "aos/dist/aos.css";
 const useStyles = makeStyles((theme) => ({
@@ -25,6 +26,8 @@ const Commentp = ({match}) => {
   const [comments,setComments] = useState([])
   const[question,setQuestion] = useState("")
   const{id} = useParams()
+
+  const ajayid = useSelector((state)=> state.login._id)
 
   console.log(id,"allem")
     // const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
@@ -43,10 +46,14 @@ const Commentp = ({match}) => {
    const handleAdd = () => {
     console.log(data,"hi0");
     setFlag(!flag)
+
+    let payload ={
+      questionId:id,
+      writer:ajayid,
+      content:data
+    }
     axios
-      .post(`/comment/${id}`, {
-        content: data,
-      },
+      .post(`/comment/${ajayid}`,payload,       
       {
         headers: {'Authorization': `Bearer ${token}`}
       }
@@ -64,7 +71,7 @@ const Commentp = ({match}) => {
   };
 
   const getdata = () => {
-    axios.get(`/comment/${id}`)
+    axios.get(`/comment/${ajayid}`)
       .then(function (response) {
         // handle success
         console.log(response.data.comments);
@@ -77,12 +84,16 @@ const Commentp = ({match}) => {
    
   };
 
+  const handleExpert = () => {
+    history.push("/expert");
+  };
+
   const getquestion = ()=>{
     axios.get(`/question/${id}`)
     .then(function (response) {
       // handle success
       console.log(response.data.question.title,"lll")
-      setQuestion(response.data.question.title);
+      setQuestion(response.data.question[0].title);
       
     })
     .catch(function (error) {
@@ -198,6 +209,7 @@ const Commentp = ({match}) => {
               variant="outlined"
               color="primary"
               size="small"
+              onClick={handleExpert}
             >
               Expert Room
             </Button>
@@ -217,7 +229,7 @@ const Commentp = ({match}) => {
               <a href style={{fontSize:"18px"}}><br />
                 {item.content}
                 <br />  <br />
-                <Link style={{position:"absolute",right:"21px",fontSize:"15.8px"}} to={`/messenger/${item.writer}`}>-{item._id}</Link>
+                <Link style={{position:"absolute",right:"21px",fontSize:"15.8px"}} to={`/messenger/${item.writer}`}>-{item.writer}</Link>
                 {/* <a style={{ color: "gray", fontWeight: "bold" }}>
                   
                 </a> */}
