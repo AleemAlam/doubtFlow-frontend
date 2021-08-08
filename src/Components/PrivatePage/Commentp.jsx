@@ -5,31 +5,26 @@ import { Button } from "@material-ui/core";
 import { useEffect } from "react";
 import axios from "axios";
 import useAxios from "../../Hooks/axioshook";
-import { makeStyles } from '@material-ui/core/styles';
-import LinearProgress from '@material-ui/core/LinearProgress';
-import { Link, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import Aos from "aos";
+import { makeStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import "aos/dist/aos.css";
+import { useSelector } from "react-redux";
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
   },
 }));
 
-const Commentp = ({match}) => {
+const Commentp = ({ match }) => {
   const [data, setData] = useState("");
-  const [comments,setComments] = useState([])
-  const[question,setQuestion] = useState("")
-  const{id} = useParams()
+  const qstID = match.params.id;
+  const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
 
-  console.log(id,"allem")
-    // const { response, loading, error } = useAxios({ url: `/question/${qstID}` });
-
+  const[comments,setComments] = useState([])
     const token = useSelector((state)=> state.login.token)
 
     const username =  useSelector((state)=> state.login.name)
@@ -45,7 +40,7 @@ const Commentp = ({match}) => {
     console.log(data,"hi0");
     setFlag(!flag)
     axios
-      .post(`http://localhost:8080/comment/${id}`, {
+      .post(`http://localhost:8080/comment/${userid}`, {
         content: data,
       },
       {
@@ -207,7 +202,16 @@ const Commentp = ({match}) => {
       </div>
       <div className="Main-commentp-div" data-aos="fade-left">
         <div>
-          <h3>{<div>{question}</div>}</h3>
+          <h2>
+            {loading ? (
+              <>
+                {" "}
+                <LinearProgress /> <LinearProgress />
+              </>
+            ) : (
+              response?.question.question
+            )}
+          </h2>
         </div>
         <span style={{color:"gray",fontWeight:"bold"}}> Answers : </span>
         <hr />

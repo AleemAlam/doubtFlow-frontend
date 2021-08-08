@@ -34,7 +34,7 @@ export default function Messenger() {
           senderId: user._id,
           receiverId: newUserId
         });
-        console.log(currentChat)
+        handleCurrentChat(res.data)
         setNewConv(true)
       } catch (err) {
         console.log(err);
@@ -42,16 +42,11 @@ export default function Messenger() {
     };
     const getConversations = async () => {
       try {
-        const res = await axios.get("/conversation/" + newUserId);
-        if(res.data.length === 0){
+        const res = await axios.get("/conversation/find/"+user._id+"/"+newUserId);
+        if(!res.data){
           getNewUserConv();
         } else {
-          res.data.forEach((item) => {
-            if(item.members.includes(user._id)){
-              handleCurrentChat(item)
-            }
-          })
-          
+          handleCurrentChat(res.data)
         }
       } catch (err) {
         console.log(err);
@@ -209,7 +204,7 @@ export default function Messenger() {
             )}
           </div>
         </div>
-        <div className="chatOnline">
+        {/* <div className="chatOnline">
           <div className="chatOnlineWrapper">
             <ChatOnline
               onlineUsers={onlineUsers}
@@ -217,7 +212,7 @@ export default function Messenger() {
               setCurrentChat={setCurrentChat}
             />
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );
