@@ -104,11 +104,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const state = useSelector((state) => state.login);
+  const username = useSelector((state) => state.login.name);
   let history = useHistory();
   const dispatch = useDispatch()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+
+  console.log(username,"navbar")
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -250,6 +254,7 @@ export default function Navbar() {
                       </Link>
                     </Typography>
                   </IconButton>
+          
                   <IconButton
                     aria-label="show 17 new notifications"
                     color="inherit"
@@ -266,6 +271,7 @@ export default function Navbar() {
                   >
                     <AccountCircle />
                   </IconButton>
+                  <p>{username}</p>
                 </div>
                 <div className={classes.sectionMobile}>
                   <IconButton
