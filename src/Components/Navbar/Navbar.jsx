@@ -104,11 +104,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Navbar() {
   const state = useSelector((state) => state.login);
+  const username = useSelector((state) => state.login.name);
   let history = useHistory();
   const dispatch = useDispatch()
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+
+
+  console.log(username,"navbar")
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
@@ -189,10 +193,15 @@ export default function Navbar() {
     </Menu>
   );
 
+  ///////////
+
+  //search filter//
+
+
   return (
     <div className={classes.root}>
       <div className={classes.grow}>
-        <AppBar className={classes.nav} position='static'>
+        <AppBar className={classes.nav} position="static">
           <Toolbar>
             {/* <IconButton
               edge='start'
@@ -202,13 +211,17 @@ export default function Navbar() {
             >
               <MenuIcon />
             </IconButton> */}
-            <Typography className={classes.title} variant='h6' noWrap>
-              <Link to='/' className={classes.homeicon}>
-                DoubtFlow
+            <Typography className={classes.title} variant="h6" noWrap>
+              <Link to="/" className={classes.homeicon}>
+                <img
+                  src="https://pbs.twimg.com/profile_images/1220067947798024192/30eZhfxx_400x400.png"
+                  style={{ height: "25px", borderRadius: "3px" }}
+                />
+                DoubtOverFlow
               </Link>
             </Typography>
-            <div className={classes.searchContainer} >
-              <div className={classes.search}>
+            <div className={classes.searchContainer}>
+              {/* <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <SearchIcon />
                 </div>
@@ -219,52 +232,72 @@ export default function Navbar() {
                     input: classes.inputInput,
                   }}
                   inputProps={{ 'aria-label': 'search' }}
+            
                 />
-              </div>
+              </div> */}
             </div>
             {/* <div className={classes.grow} /> */}
+
             {state.isAuth ? (
               <>
-                {' '}
                 <div className={classes.sectionDesktop}>
-                  <IconButton aria-label='show 4 new mails' color='inherit'>
-                    <Badge badgeContent={4} color='secondary'>
-                      <MailIcon />
-                    </Badge>
-                  </IconButton>
                   <IconButton
-                    aria-label='show 17 new notifications'
-                    color='inherit'
+                    aria-label="show 4 new mails"
+                    color="inherit"
+                    className={classes.title}
+                    variant="h6"
+                    noWrap
                   >
-                    <Badge badgeContent={17} color='secondary'>
-                      <NotificationsIcon />
-                    </Badge>
+                    <Typography>
+                      <Link className={classes.homeicon} to="/register">
+                        Sign up
+                      </Link>
+                    </Typography>
+                  </IconButton>
+          
+                  <IconButton
+                    aria-label="show 17 new notifications"
+                    color="inherit"
+                  >
+                    <Typography></Typography>
                   </IconButton>
                   <IconButton
-                    edge='end'
-                    aria-label='account of current user'
+                    edge="end"
+                    aria-label="account of current user"
                     aria-controls={menuId}
-                    aria-haspopup='true'
+                    aria-haspopup="true"
                     onClick={handleProfileMenuOpen}
-                    color='inherit'
+                    color="inherit"
                   >
                     <AccountCircle />
                   </IconButton>
+                  <p>{username}</p>
                 </div>
                 <div className={classes.sectionMobile}>
                   <IconButton
-                    aria-label='show more'
+                    aria-label="show more"
                     aria-controls={mobileMenuId}
-                    aria-haspopup='true'
+                    aria-haspopup="true"
                     onClick={handleMobileMenuOpen}
-                    color='inherit'
+                    color="inherit"
                   >
                     <MoreIcon />
                   </IconButton>
-                </div>{' '}
+                </div>{" "}
               </>
             ) : (
-              <Button color="inherit" onClick={()=> history.push("/login")} >Login</Button>
+              <div>
+                <Button color="inherit" onClick={() => history.push("/login")}>
+                  Login
+                </Button>
+
+                <Button
+                  color="inherit"
+                  onClick={() => history.push("/register")}
+                >
+                  Register{" "}
+                </Button>
+              </div>
             )}
           </Toolbar>
         </AppBar>

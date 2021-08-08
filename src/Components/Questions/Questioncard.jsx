@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{  useEffect} from 'react';
 import { useHistory } from 'react-router';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -7,7 +7,9 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Grid } from '@material-ui/core';
+import Aos from "aos";
 
+import "aos/dist/aos.css";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -31,6 +33,11 @@ export default function Questioncard({ title, desciption, creator, id }) {
   const classes = useStyles();
   const history = useHistory();
 
+
+  console.log({creator})
+  useEffect(() => {
+    Aos.init({ duration: 2000 });
+  });
   return (
     <Card className={classes.root}>
       <CardContent>
@@ -56,13 +63,14 @@ export default function Questioncard({ title, desciption, creator, id }) {
               size='small'
               onClick={() => history.push(`/questions/${id}`)}
               color="primary"
+            
             >
               See Answer
             </Button>
           </CardActions>
-          <Typography className={classes.pos} color='textSecondary'>
+          {/* <Typography className={classes.pos} color='textSecondary'>
             Asked by : {creator}
-          </Typography>
+          </Typography> */}
         </Grid>
       </Grid>
     </Card>

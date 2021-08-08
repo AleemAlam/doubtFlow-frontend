@@ -7,6 +7,7 @@ import "./modalc.css";
 import { TextField } from "@material-ui/core";
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -25,6 +26,8 @@ const useStyles = makeStyles((theme) => ({
 export default function TransitionsModal() {
   const classes = useStyles();
 
+  const token = useSelector((state)=> state.login.token)
+  const idd = useSelector((state)=> state.login._id)
   const obj = {
     title:"title",
     hashtag:"hashtag",
@@ -55,23 +58,29 @@ export default function TransitionsModal() {
   const handleSubmit = ()=>{
     console.log(data);
     if (data.title !== "" && data.body !== "") {
-      let payload = {
-        title: data.title,
-        hashtag: data.hashtag,
-        body: data.body,
-      };
-
+    
+   
+  
+      
       ///// post request
       axios
-        .post("/user", {
-          payload,
-        })
+        .post("http://localhost:8080/question", {
+          "title": data.title,
+          "tags":data.hashtag.split(","),
+          "question":data.body,
+          "creator":idd
+      },
+        {
+          headers: {'Authorization': `Bearer ${token}`}
+        }
+        )
+
         .then(function (response) {
           console.log(response);
-        });
-
+        })
+        .catch((err)=>console.log(err.message))
         ////
-        alert("Question Added Successfully")
+   
         setOpen(false)
     } else {
       if (data.title === "") {
@@ -91,6 +100,9 @@ export default function TransitionsModal() {
         data-aos="fade-down"
         onClick={handleOpen}
         variant="contained" color="primary" 
+        size="large"
+        style={{width:"190%",marginLeft:"240px"}}
+        
         
       >
         Ask Question

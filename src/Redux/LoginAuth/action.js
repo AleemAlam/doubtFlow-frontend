@@ -39,12 +39,15 @@ export const logoutpage = () => {
 export const loginruser = (payload) => (dispatch) => {
   dispatch(loginregister());
   
-  axios.post('/users/login', { email: payload.email,
+  axios.post('http://localhost:8080/users/login', { email: payload.email,
       password: payload.password,})
     .then((res) => {
+      console.log(res,"tok")
+      alert("You Have Successfully Logged in")
       dispatch(sucessLoginreq(res.data));
     })
     .catch((err) => {
+      alert("Email or Password wrong")
       dispatch(failureLoginreq(err));
     });
 };
