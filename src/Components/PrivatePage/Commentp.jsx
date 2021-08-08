@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Link, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Aos from "aos";
+import { useHistory } from "react-router-dom";
 
 import "aos/dist/aos.css";
 const useStyles = makeStyles((theme) => ({
@@ -81,6 +82,10 @@ const Commentp = ({match}) => {
         console.log(error);
       });
    
+  };
+
+  const handleExpert = () => {
+    history.push("/expert");
   };
 
   const getquestion = ()=>{
@@ -204,6 +209,7 @@ const Commentp = ({match}) => {
               variant="outlined"
               color="primary"
               size="small"
+              onClick={handleExpert}
             >
               Expert Room
             </Button>
